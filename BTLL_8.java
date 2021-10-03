@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+public class BTLL_8 {
+    static class SinglyLinkedListNode {
+        public int data;
+        public SinglyLinkedListNode next;
+
+        public SinglyLinkedListNode(int nodeData) {
+            this.data = nodeData;
+            this.next = null;
+        }
+    }
+
+    static class SinglyLinkedList {
+        public SinglyLinkedListNode head;
+        public SinglyLinkedListNode tail;
+
+        public SinglyLinkedList() {
+            this.head = null;
+            this.tail = null;
+        }
+
+        public void insertNode(int nodeData) {
+            SinglyLinkedListNode newNode = new SinglyLinkedListNode(nodeData);
+
+            if (head == null) {
+                this.head = newNode;
+            } else {
+                this.tail.next = newNode;
+            }
+            this.tail = newNode;
+        }
+    }
+
+    static void printLL(SinglyLinkedListNode head) {
+        if (head == null) {
+            return;
+        } else {
+            while (head != null) {
+                System.out.print(head.data + " ");
+                head = head.next;
+            }
+        }
+    }
+
+    static boolean compareLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        boolean check = true;
+        while (head1 != null && head2 != null) {
+            if (head1.data != head2.data) {
+                check = false;
+            } else {
+                head1 = head1.next;
+                head2 = head2.next;
+            }
+        }
+        if (head1 != null || head2 != null) {
+            check = false;
+        }
+        return check;
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int tests = scanner.nextInt();
+        for (int testsItr = 0; testsItr < tests; testsItr++) {
+            SinglyLinkedList llist1 = new SinglyLinkedList();
+
+            int llist1Count = scanner.nextInt();
+            for (int i = 0; i < llist1Count; i++) {
+                int llist1Item = scanner.nextInt();
+                llist1.insertNode(llist1Item);
+            }
+
+            SinglyLinkedList llist2 = new SinglyLinkedList();
+            int llist2Count = scanner.nextInt();
+            for (int i = 0; i < llist2Count; i++) {
+                int llist2Item = scanner.nextInt();
+                llist2.insertNode(llist2Item);
+            }
+
+            boolean result = compareLists(llist1.head, llist2.head);
+            if (result == true) {
+                System.out.print(1);
+            } else {
+                System.out.print(0);
+            }
+        }
+        scanner.close();
+    }
+}
